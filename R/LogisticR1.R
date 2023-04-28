@@ -11,6 +11,8 @@
 
 training.data.raw <- read.csv('../data/train.csv',header=T,na.strings=c(""))
 
+hdp <- read.csv("https://stats.idre.ucla.edu/stat/data/hdp.csv")
+
 
 # Output the number of missing values for each column
 sapply(training.data.raw,function(x) sum(is.na(x)))
