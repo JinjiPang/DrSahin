@@ -1,0 +1,66 @@
+﻿State,Farm_ID,Molecular,Flock_Size,Age category,Production_System,Outbreak,Episodes,Neighbouring_Outbreaks,Farm_fenced,Waste_management,Livestock,Proximity_Poultry,Foot_dip,Lavatory,Frequency
+Sokoto,S_Farm 9,Negative,2800,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Sokoto,S_Farm 15,Negative,8000,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Sokoto,S_Farm 41,Negative,7500,Layers,Battery Cage,Yes,Twice,No,Yes,On farm,No,Yes,Yes,Yes,Monthly
+Sokoto,S_Farm 23,Positive,10000,Layers,Deep Litre System,Yes,More,Yes,No,On farm,Yes,Yes,No,No,Yearly
+Sokoto,S_Farm 59,Negative,500,Layers,Deep Litre System,No,None,No,Yes,Off farm,No,Yes,Yes,Yes,Weekly
+Sokoto,S_Farm 62,Negative,950,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Sokoto,S_Farm 20,Positive,22000,Layers,Battery Cage,Yes,Once,Yes,No,On farm,No,No,No,No,Monthly
+Sokoto,S_Farm 50,Negative,150,Layers,Battery Cage,No,None,No,Yes,Off farm,Yes,No,Yes,Yes,Weekly
+Sokoto,S_Farm 12,Negative,170,Layers,Deep Litre System,Yes,Once,No,Yes,Off farm,No,Yes,No,No,Weekly
+Sokoto,S_Farm 1,Positive,200,Broiler Starter,Deep Litre System,Yes,More,Yes,No,On farm,Yes,Yes,No,No,Monthly
+Sokoto,S_Farm 3,Negative,200,Broiler Finisher,Battery Cage,No,None,No,Yes,Off farm,Yes,No,No,Yes,Weekly
+Sokoto,S_Farm 5,Negative,180,Broiler Starter,Battery Cage,Yes,Once,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Sokoto,S_Farm 22,Positive,23000,Layers,Deep Litre System,Yes,Once,Yes,No,On farm,Yes,Yes,No,No,Monthly
+Sokoto,S_Farm 34,Negative,1000,Broiler Finisher,Battery Cage,No,None,No,Yes,On farm,No,No,Yes,Yes,Monthly
+Sokoto,S_Farm 47,Positive,190,Layers,Deep Litre System,Yes,More,Yes,No,On farm,Yes,Yes,No,No,Monthly
+Kebbi,K_Farm 28,Positive,900,Layers,Deep Litre System,Yes,Twice,Yes,No,On farm,Yes,Yes,No,No,Monthly
+Kebbi,K_Farm 21,Negative,9500,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Monthly
+Kebbi,K_Farm 36,Negative,1000,Layers,Battery Cage,Yes,Once,No,Yes,Off farm,Yes,Yes,Yes,No,Weekly
+Kebbi,K_Farm 42,Negative,70000,Layers,Battery Cage,Yes,More,No,Yes,Off farm,No,No,Yes,No,Weekly
+Kebbi,K_Farm 2,Negative,180,Broiler Finisher,Deep Litre System,No,Once,No,No,Off farm,Yes,No,No,Yes,Weekly
+Kebbi,K_Farm 44,Negative,60000,Layers,Battery Cage,No,None,Yes,Yes,On farm,No,No,Yes,Yes,Weekly
+Zamfara,Z_Farm 12,Negative,11000,Layers,Battery Cage,Yes,Once,No,Yes,Off farm,No,No,Yes,Yes,Monthly
+Zamfara,Z_Farm 24,Negative,250,Broiler Finisher,Deep Litre System,Yes,Twice,No,Yes,Off farm,No,Yes,Yes,No,Weekly
+Zamfara,Z_Farm 19,Positive,1200,Spent Layers,Deep Litre System,Yes,More,Yes,No,On farm,Yes,Yes,No,No,Monthly
+Zamfara,Z_Farm 17,Positive,82000,Layers,Deep Litre System,Yes,Twice,Yes,No,On farm,Yes,Yes,No,No,Yearly
+Zamfara,Z_Farm 21,Negative,15000,Layers,Battery Cage,No,None,No,Yes,Off farm,No,Yes,Yes,No,Weekly
+Zamfara,Z_Farm 50,Negative,9000,Growers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Zamfara,Z_Farm 1,Positive,23000,Growers,Deep Litre System,Yes,Twice,Yes,No,On farm,Yes,Yes,No,No,Monthly
+Sokoto,S_Farm 16,Positive,13500,Layers,Battery Cage,Yes,More,Yes,Yes,On farm,Yes,Yes,No,No,Monthly
+Sokoto,S_Farm 2,Negative,200,Broiler Finisher,Deep Litre System,Yes,Twice,No,No,On farm,No,No,Yes,No,Weekly
+Sokoto,S_Farm 13,Negative,170,Broiler Starter,Deep Litre System,Yes,More,No,Yes,On farm,Yes,Yes,No,Yes,Monthly
+Sokoto,S_Farm 28,Positive,500,Broiler Starter,Deep Litre System,Yes,More,Yes,No,On farm,Yes,Yes,No,No,Monthly
+Sokoto,S_Farm 32,Positive,12000,Layers,Battery Cage,Yes,More,No,No,On farm,Yes,Yes,No,Yes,Yearly
+Sokoto,S_Farm 27,Positive,650,Chicks,Deep Litre System,Yes,Twice,No,No,On farm,Yes,No,No,No,Monthly
+Sokoto,S_Farm 42,Positive,7200,Layers,Deep Litre System,Yes,More,Yes,No,On farm,Yes,Yes,No,No,Yearly
+Sokoto,S_Farm 6,Positive,180,Broiler Starter,Deep Litre System,Yes,Once,No,No,Off farm,Yes,Yes,No,No,Monthly
+Sokoto,S_Farm 21,Positive,75000,Layers,Battery Cage,Yes,More,No,Yes,On farm,Yes,No,Yes,No,Monthly
+Sokoto,S_Farm 42,Positive,8500,Layers,Deep Litre System,Yes,More,Yes,Yes,On farm,Yes,No,Yes,No,Monthly
+Sokoto,S_Farm 60,Positive,680,Layers,Deep Litre System,Yes,Twice,No,No,On farm,Yes,Yes,No,No,Monthly
+Sokoto,S_Farm 30,Positive,9500,Layers,Deep Litre System,Yes,More,No,No,Off farm,No,Yes,No,No,Weekly
+Zamfara,S_Farm 3,Negative,125000,Chicks,Battery Cage,No,None,Yes,Yes,Off farm,Yes,Yes,Yes,Yes,Monthly
+Zamfara,Z_Farm 2,Positive,4500,Chicks,Battery Cage,Yes,More,No,Yes,On farm,Yes,No,No,Yes,Yearly
+Zamfara,Z_Farm 13,Positive,62000,Layers,Battery Cage,Yes,More,Yes,Yes,On farm,Yes,Yes,No,No,Monthly
+Zamfara,Z_Farm 14,Negative,22000,Layers,Battery Cage,Yes,More,No,No,Off farm,No,No,Yes,Yes,Weekly
+Zamfara,Z_Farm 15,Negative,950,Layers,Deep Litre System,No,None,No,No,Off farm,No,No,Yes,No,Weekly
+Zamfara,Z_Farm 20,Negative,71000,Layers,Battery Cage,No,None,No,Yes,Off farm,Yes,No,Yes,Yes,Weekly
+Zamfara,Z_Farm 25,Positive,175,Broiler Finisher,Deep Litre System,Yes,Twice,Yes,No,On farm,No,Yes,No,No,Yearly
+Zamfara,Z_Farm 27,Positive,11500,Layers,Battery Cage,Yes,More,Yes,No,On farm,Yes,Yes,Yes,No,Yearly
+Zamfara,Z_Farm 30,Negative,13000,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,No,Monthly
+Zamfara,Z_Farm 36,Positive,21000,Layers,Battery Cage,Yes,Twice,No,Yes,On farm,Yes,No,No,No,Monthly
+Kebbi,K_Farm 4,Negative,650,Layers,Deep Litre System,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Kebbi,K_Farm 6,Negative,920,Layers,Deep Litre System,No,None,No,Yes,Off farm,No,No,Yes,Yes,Monthly
+Kebbi,K_Farm 9,Negative,12000,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Monthly
+Kebbi,K_Farm 17,Positive,700,Layers,Deep Litre System,Yes,More,Yes,No,On farm,Yes,No,No,No,Monthly
+Kebbi,K_Farm 19,Negative,500,Layers,Deep Litre System,No,None,No,Yes,Off farm,No,Yes,Yes,Yes,Monthly
+Kebbi,K_Farm 25,Negative,6000,Spent Layers,Battery Cage,No,None,No,Yes,Off farm,No,Yes,Yes,Yes,Monthly
+Kebbi,K_Farm 26,Positive,1000,Growers,Deep Litre System,Yes,Twice,No,No,On farm,Yes,Yes,No,No,Monthly
+Kebbi,K_Farm 27,Positive,1000,Layers,Deep Litre System,Yes,More,No,No,Off farm,Yes,Yes,No,No,Monthly
+Kebbi,K_Farm 40,Negative,4500,Growers,Battery Cage,Yes,More,Yes,Yes,On farm,Yes,No,No,Yes,Monthly
+Kebbi,K_Farm 48,Negative,850,Spent Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Sokoto,S_Farm 8,Negative,65000,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Sokoto,S_Farm 19,Negative,3500,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Sokoto,S_Farm 40,Negative,9600,Layers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Zamfara,Z_Farm 28,Negative,45000,Growers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
+Zamfara,Z_Farm 39,Negative,23000,Growers,Battery Cage,No,None,No,Yes,Off farm,No,No,Yes,Yes,Weekly
