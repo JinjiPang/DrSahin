@@ -1,5 +1,6 @@
 library(Amelia)
 library(dplyr)
+library(ggplot2)
 library(tidyverse)
 library(lme4)
 ##Campylobacter
@@ -33,8 +34,6 @@ data$FH<-paste(data$FarmID,"-",data$HouseID)
 
 sapply(data, function(x) length(unique(x)))
 
-
-str(data)
 ##change variable attribute
 data$FarmID <- as.factor(data$FarmID)
 data$HouseID <- as.factor(data$HouseID)
@@ -44,7 +43,7 @@ data$FH <- as.factor(data$FH)
 data$Date<-as.Date(data$Date, "%m/%d/%y")
 data$Test<-as.numeric(data$Test)
 
-##create season variable based on cycle
+##create Season variable based on cycle
 data<-data%>%
   mutate(
     Season =case_when(
@@ -58,7 +57,7 @@ data<-data%>%
       Cycle == "5th cycle" ~ "Summer-Fall"
       ))
 
-##create campylobacter variable based on CFU
+##create Campylobacter variable based on CFU
 data<-data%>%
   mutate(
     Campylobacter =case_when(
@@ -100,7 +99,7 @@ data$season <- as.factor(data$season)
 ## farm status, therefore this result was not included in the manuscript
 
 lapply(c("FarmID","HouseID","Sample_Type",
-         "Cycle","FH", "Season"),
+         "Cycle","FH", "Season","Month"),
 
        function(var) {
 
@@ -126,6 +125,13 @@ summary(model_month)
 
 vcov(model_month)
 
+
+se <- sqrt(diag(vcov(model_month)))
+# table of estimates with 95% CI
+tab <- cbind(Est = fixef(model_month), LL = fixef(model_month) - 1.96 * se, UL = fixef(model_month) + 1.96 *
+                se)
+
+print(exp(tab))
 
 # Fit a logistic mixed-effects model, with season
 model_season <- glmer(target ~ Sample_Type + season + (1 | FarmID) + (1 | FarmID:HouseID),
