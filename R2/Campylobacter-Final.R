@@ -8,10 +8,19 @@ library(lme4)
 ##Step 1:Data cleaning
 #################################################################################
 ##Read in data file
-campydata <- read.csv('../data/campylobacter-metadata.csv',header=T,na.strings=c(""))
+campydata <- read.csv('../data/campylobacter-metadata-os.csv',header=T,na.strings=c(""))
+
+campydata<-campydata[, 1:13]
 
 # Output the number of missing values for each column
 sapply(campydata,function(x) sum(is.na(x)))
+
+
+campydata<-subset(campydata,!is.na(CFU))
+
+## get rid of samples that had dry boot swab, which is represented by BootDry==Y (yes)
+campydata<-subset(campydata,BootDry=="N")
+
 
 # Quick check for how many different values for each feature
 sapply(campydata, function(x) length(unique(x)))
@@ -20,44 +29,33 @@ sapply(campydata, function(x) length(unique(x)))
 missmap(campydata, main = "Missing values vs observed")
 
 # Subsetting the data
-data <- subset(campydata,select=c(1,2,3,10,11,12))
+data <- subset(campydata,select=c(1,2,3,10,11,12,13))
 
 missmap(data, main = "Missing values vs observed")
 
 ##remove samples that doesn't have campy status
 data<-data%>%drop_na()
-# Check, now Age should not have any missing values
+# Check, now data should not have any missing values
 missmap(data, main = "Missing values vs observed")
 
-## create Farm_House variable "FH"
-data$FH<-paste(data$FarmID,"-",data$HouseID)
-
+## check levels of each variable
 sapply(data, function(x) length(unique(x)))
+
+
 
 ##change variable attribute
 data$FarmID <- as.factor(data$FarmID)
 data$HouseID <- as.factor(data$HouseID)
+data$Test<-as.numeric(data$Test)
 data$Sample_Type <- as.factor(data$Sample_Type)
 data$Cycle <- as.factor(data$Cycle)
-data$FH <- as.factor(data$FH)
+data$BootDry <- as.factor(data$BootDry)
 data$Date<-as.Date(data$Date, "%m/%d/%y")
-data$Test<-as.numeric(data$Test)
 
-##create Season variable based on cycle
-data<-data%>%
-  mutate(
-    Season =case_when(
-      Cycle == "1st cycle" ~ "Fall-Winter",
-      Cycle == "2nd cycle" ~ "Winter-Spring",
-      Cycle == "3rd cycle" ~ "Spring-Summer",
-      Cycle == "4th cycle" ~ "Summer-Fall",
-      Cycle == "6th cycle" ~ "Fall-Winter",
-      Cycle == "7th cycle" ~ "Winter-Spring",
-      Cycle == "8th cycle" ~ "Spring-Summer",
-      Cycle == "5th cycle" ~ "Summer-Fall"
-      ))
+str(data)
 
-##create Campylobacter variable based on CFU
+##Mutate new variables
+##1.create Campylobacter variable based on CFU
 data<-data%>%
   mutate(
     Campylobacter =case_when(
@@ -65,9 +63,9 @@ data<-data%>%
       Test > 0 ~ "Positive"
     ))
 
+##use number to show campy status, create target variable, target=1, positive;target=0,negative
 data$target <- 0
 data$target[data$Campylobacter == "Positive"] <- 1
-
 
 # Mutate a new variable called Month
 data <- data %>%
@@ -95,11 +93,14 @@ data<-data%>%
 
 data$season <- as.factor(data$season)
 
+
+
+
 ## Step 1 univariate analysis, did this but turned out all the predictors had significant effect on the Campylobacter
 ## farm status, therefore this result was not included in the manuscript
 
 lapply(c("FarmID","HouseID","Sample_Type",
-         "Cycle","FH", "Season","Month"),
+         "Cycle","season","Month"),
 
        function(var) {
 
@@ -124,7 +125,6 @@ model_month <- glmer(target ~ Sample_Type + Month + (1 | FarmID) + (1 | FarmID:H
 summary(model_month)
 
 vcov(model_month)
-
 
 se <- sqrt(diag(vcov(model_month)))
 # table of estimates with 95% CI
