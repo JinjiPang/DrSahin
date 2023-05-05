@@ -94,7 +94,7 @@ data<-data%>%
 data$season <- as.factor(data$season)
 
 
-
+str(data)
 
 ## Step 1 univariate analysis, did this but turned out all the predictors had significant effect on the Campylobacter
 ## farm status, therefore this result was not included in the manuscript
@@ -114,8 +114,6 @@ lapply(c("FarmID","HouseID","Sample_Type",
 #################################################################################
 
 ## Step 2 logistic regression
-
-str(data)
 
 # Fit a logistic mixed-effects model, with Month
 model_month <- glmer(target ~ Sample_Type + Month + (1 | FarmID) + (1 | FarmID:HouseID),
@@ -140,7 +138,7 @@ model_season <- glmer(target ~ Sample_Type + season + (1 | FarmID) + (1 | FarmID
 # View the model summary
 summary(model_season)
 
-## model_month has lower AIC compared with model_season, therefore, we will proceed with model_month
+## model_month(AIC=5206) has lower AIC compared with model_season (AIC=5571), therefore, we will proceed with model_month
 
 
 
