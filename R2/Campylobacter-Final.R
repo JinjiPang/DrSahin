@@ -3,6 +3,7 @@ library(dplyr)
 library(ggplot2)
 library(tidyverse)
 library(lme4)
+library(kableExtra)
 ##Campylobacter
 
 ##Step 1:Data cleaning
@@ -17,6 +18,17 @@ sapply(campydata,function(x) sum(is.na(x)))
 
 
 campydata<-subset(campydata,!is.na(CFU))
+
+
+# campydata$Flock<-paste(campydata$FarmID,"-",campydata$HouseID,"-",campydata$Cycle)
+#
+# sapply(campydata, function(x) length(unique(x)))
+
+# FarmID     HouseID Sample_Type    sampleID  Farm_House diluation_1 diluation_3 diluation_4
+# 15           4           2          15         954         281         627         341
+# CFU        Test        Date       Cycle     BootDry       Flock
+# 984          71         109           8           2         410
+
 
 ## get rid of samples that had dry boot swab, which is represented by BootDry==Y (yes)
 campydata<-subset(campydata,BootDry=="N")
@@ -93,6 +105,19 @@ data<-data%>%
 
 data$season <- as.factor(data$season)
 
+## 05/10/2023 added: create flock variable "Flock"
+data$Flock<-paste(data$FarmID,"-",data$HouseID,"-",data$Cycle)
+
+sapply(data, function(x) length(unique(x)))
+
+
+data%>%group_by(Flock,Campylobacter)%>%
+  summarise(
+    count = n()
+  )%>%kbl(caption = "Sample Information") %>%
+  kable_classic(full_width = F, html_font = "Cambria")%>%
+  column_spec(1, bold = T, border_right = T)
+
 
 str(data)
 
@@ -100,7 +125,7 @@ str(data)
 ## farm status, therefore this result was not included in the manuscript
 
 lapply(c("FarmID","HouseID","Sample_Type",
-         "Cycle","season","Month"),
+         "Cycle","season","Month","Flock"),
 
        function(var) {
 
@@ -115,30 +140,24 @@ lapply(c("FarmID","HouseID","Sample_Type",
 
 ## Step 2 logistic regression
 
-# Fit a logistic mixed-effects model, with Month
-model_month <- glmer(target ~ Sample_Type + Month + (1 | FarmID) + (1 | FarmID:HouseID),
+# Fit a logistic mixed-effects model, with Production cycle
+# FarmID:HouseID:Cycle equals to Flock
+
+model_cycle <- glmer(target ~ Sample_Type + Cycle + (1 | FarmID) + (1 | FarmID:HouseID) + (1 | FarmID:HouseID:Cycle),
                data = data, family = binomial)
 
+
 # View the model summary
-summary(model_month)
+summary(model_cycle)
 
-vcov(model_month)
 
-se <- sqrt(diag(vcov(model_month)))
+vcov(model_cycle)
+
+se <- sqrt(diag(vcov(model_cycle)))
 # table of estimates with 95% CI
-tab <- cbind(Est = fixef(model_month), LL = fixef(model_month) - 1.96 * se, UL = fixef(model_month) + 1.96 *
+tab <- cbind(Est = fixef(model_cycle), LL = fixef(model_cycle) - 1.96 * se, UL = fixef(model_cycle) + 1.96 *
                 se)
 
 print(exp(tab))
-
-# Fit a logistic mixed-effects model, with season
-model_season <- glmer(target ~ Sample_Type + season + (1 | FarmID) + (1 | FarmID:HouseID),
-               data = data, family = binomial)
-
-# View the model summary
-summary(model_season)
-
-## model_month(AIC=5206) has lower AIC compared with model_season (AIC=5571), therefore, we will proceed with model_month
-
 
 
