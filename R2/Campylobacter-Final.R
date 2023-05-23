@@ -8,21 +8,13 @@ library(kableExtra)
 
 ##Step 1:Data cleaning
 #################################################################################
-##Read in data file
+##Read in data file, after removing 4 flocks from BB-H1,2,3,4, 2nd production cycle
 campydata <- read.csv('../data/campylobacter-metadata-os.csv',header=T,na.strings=c(""))
 
 campydata<-campydata[, 1:13]
 
-# Output the number of missing values for each column
-sapply(campydata,function(x) sum(is.na(x)))
-
-
-campydata<-subset(campydata,!is.na(CFU))
-
-
-# campydata$Flock<-paste(campydata$FarmID,"-",campydata$HouseID,"-",campydata$Cycle)
-#
-# sapply(campydata, function(x) length(unique(x)))
+campydata$Flock<-paste(campydata$FarmID,"-",campydata$HouseID,"-",campydata$Cycle)
+sapply(campydata, function(x) length(unique(x)))
 
 # FarmID     HouseID Sample_Type    sampleID  Farm_House diluation_1 diluation_3 diluation_4
 # 15           4           2          15         954         281         627         341
@@ -30,39 +22,72 @@ campydata<-subset(campydata,!is.na(CFU))
 # 984          71         109           8           2         410
 
 
-## get rid of samples that had dry boot swab, which is represented by BootDry==Y (yes)
-campydata<-subset(campydata,BootDry=="N")
+#remove BB-H1,2,3,4, 2nd cycles
 
 
-# Quick check for how many different values for each feature
-sapply(campydata, function(x) length(unique(x)))
+campyda<-campydata[campydata$Flock != "BB - H1 - 2nd cycle" & campydata$Flock != "BB - H2 - 2nd cycle"&
+                     campydata$Flock != "BB - H3 - 2nd cycle" & campydata$Flock != "BB - H4 - 2nd cycle", ]
+
+sapply(campyda, function(x) length(unique(x)))
+
+# FarmID     HouseID Sample_Type    sampleID  Farm_House diluation_1 diluation_3 diluation_4
+# 15           4           2          15         954         280         619         339
+# CFU        Test        Date       Cycle     BootDry       Flock
+# 984          71         109           8           2         406
+
+#remove boot sample dry
+DF<-subset(campyda,BootDry=="N")
+
+sapply(DF, function(x) length(unique(x)))
+
+# FarmID     HouseID Sample_Type    sampleID  Farm_House diluation_1 diluation_3 diluation_4
+# 15           4           2          15         954         258         615         332
+# CFU        Test        Date       Cycle     BootDry       Flock
+# 974          71         101           8           1         379
+
+DFdry<-subset(campyda,BootDry=="Y")
+
+sapply(DFdry, function(x) length(unique(x)))
+# FarmID     HouseID Sample_Type    sampleID  Farm_House diluation_1 diluation_3 diluation_4
+# 8           4           2          15         485          56          23          22
+# CFU        Test        Date       Cycle     BootDry       Flock
+# 89          49           8           1           1          27
+
+#remove no sample samples
+df<-subset(DF,!is.na(Test))
+
+#campydf has 6779 samples
+
+sapply(df, function(x) length(unique(x)))
+
+# FarmID     HouseID Sample_Type    sampleID  Farm_House diluation_1 diluation_3 diluation_4
+# 15           4           2          15         954         256         614         332
+# CFU        Test        Date       Cycle     BootDry       Flock
+# 974          70         101           8           1         379
 
 # A visual way to check for missing data
-missmap(campydata, main = "Missing values vs observed")
+missmap(df, main = "Missing values vs observed")
 
 # Subsetting the data
-data <- subset(campydata,select=c(1,2,3,10,11,12,13))
+data <- subset(df,select=c(1,2,3,10,11,12,13,14))
 
-missmap(data, main = "Missing values vs observed")
-
-##remove samples that doesn't have campy status
-data<-data%>%drop_na()
-# Check, now data should not have any missing values
 missmap(data, main = "Missing values vs observed")
 
 ## check levels of each variable
 sapply(data, function(x) length(unique(x)))
 
-
+# FarmID     HouseID Sample_Type        Test        Date       Cycle     BootDry       Flock
+# 15           4           2          70         101           8           1         379
 
 ##change variable attribute
 data$FarmID <- as.factor(data$FarmID)
 data$HouseID <- as.factor(data$HouseID)
-data$Test<-as.numeric(data$Test)
 data$Sample_Type <- as.factor(data$Sample_Type)
+data$Test<-as.numeric(data$Test)
+data$Date<-as.Date(data$Date, "%m/%d/%y")
 data$Cycle <- as.factor(data$Cycle)
 data$BootDry <- as.factor(data$BootDry)
-data$Date<-as.Date(data$Date, "%m/%d/%y")
+
 
 str(data)
 
@@ -105,21 +130,18 @@ data<-data%>%
 
 data$season <- as.factor(data$season)
 
-## 05/10/2023 added: create flock variable "Flock"
-data$Flock<-paste(data$FarmID,"-",data$HouseID,"-",data$Cycle)
-
-sapply(data, function(x) length(unique(x)))
 
 
-data%>%group_by(Flock,Campylobacter)%>%
+
+data%>%group_by(Sample_Type)%>%
   summarise(
     count = n()
-  )%>%kbl(caption = "Sample Information") %>%
-  kable_classic(full_width = F, html_font = "Cambria")%>%
-  column_spec(1, bold = T, border_right = T)
+  )
 
+# Sample_Type    count
+#   B            1110
+#   C            5668
 
-str(data)
 
 ## Step 1 univariate analysis, did this but turned out all the predictors had significant effect on the Campylobacter
 ## farm status, therefore this result was not included in the manuscript
