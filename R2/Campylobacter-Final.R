@@ -8,7 +8,6 @@ library(kableExtra)
 
 ##Step 1:Data cleaning
 #################################################################################
-##Read in data file, after removing 4 flocks from BB-H1,2,3,4, 2nd production cycle
 campydata <- read.csv('../data/campylobacter-metadata-os.csv',header=T,na.strings=c(""))
 
 campydata<-campydata[, 1:13]
